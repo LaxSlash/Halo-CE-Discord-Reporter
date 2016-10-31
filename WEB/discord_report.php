@@ -45,7 +45,7 @@ if (get_magic_quotes_gpc() == false)
 
 // The URL should look like this: http://www.site.tld/discord_report.php
 // ?name="SERVER NAME"
-// &sv_ip=1234
+// &sv_ip=123.123.123.123:1234
 // &snitch="New001"
 // &defendant="New002"
 // &verify_key=thisIsSomeKey
