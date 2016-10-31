@@ -18,7 +18,7 @@ if (defined('SUPER_SECURE'))
 
 // Setup variables
 $sv_name = $_GET['name'];
-$sv_ip = $_SERVER['REMOTE_ADDR'] . ':' . $_GET['port'];
+$sv_ip = $_GET['sv_ip'];
 $sv_reporter = $_GET['snitch'];
 $sv_reportee = $_GET['defendant'];
 $sv_verification_key = $_GET['verify_key'];
@@ -43,7 +43,7 @@ if (get_magic_quotes_gpc() == false)
 
 // The URL should look like this: http://www.site.tld/discord_report.php
 // ?name="SERVER NAME"
-// &port=1234
+// &sv_ip=1234
 // &snitch="New001"
 // &defendant="New002"
 // &verify_key=thisIsSomeKey
