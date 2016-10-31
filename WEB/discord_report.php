@@ -24,6 +24,7 @@ $sv_reportee = $_GET['defendant'];
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
+$snitch_msg = $_GET['snitch_msg'];
 $defendant_hash = $_GET['defendant_hash'];
 $defendant_ip = $_GET['defendant_ip'];
 
@@ -37,6 +38,7 @@ if (get_magic_quotes_gpc() == false)
 	$sv_verification_key = addslashes($sv_verification_key);
 	$snitch_hash = addslashes($snitch_hash);
 	$snitch_ip = addslashes($snitch_ip);
+	$snich_msg = addslashes($snitch_msg);
 	$defendant_hash = addslashes($defendant_hash);
 	$defendant_ip = addslashes($defendant_ip);
 }
@@ -49,6 +51,7 @@ if (get_magic_quotes_gpc() == false)
 // &verify_key=thisIsSomeKey
 // &snitch_hash=lettershere
 // &snitch_ip=123.123.123.123
+// &snitch_msg="Some message goes here."
 // &defendant_hash=someMoreLettersGoHere
 // &defendant_ip=123.123.123.123
 
@@ -70,6 +73,7 @@ $payload_ary = array(
 		array(
 			'type'			=>	'rich',														// This should always be rich, anyways.
 			'title'			=>	'Report from ' . $sv_reporter . ' against ' . $sv_reportee,
+			'description'	=>	$snitch_msg,
 			'fields'		=>	array(
 				array(
 					'name'			=>	'Server IP Address:',
