@@ -15,4 +15,7 @@ $allowed_ips = array(
 	'8.8.8.8',
 	'8.8.4.4',
 );
+
+// URL for the webhook.
+$wh_url = '';
 ?>
