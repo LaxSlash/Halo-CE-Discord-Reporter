@@ -19,8 +19,10 @@ if (defined('SUPER_SECURE'))
 // Setup variables
 $sv_name = $_GET['name'];
 $sv_ip = $_GET['sv_ip'];
-$sv_reporter = $_GET['snitch'];
-$sv_reportee = $_GET['defendant'];
+// http://stackoverflow.com/questions/14148054/php-get-string-text-from-bytes
+// This should be interesting...
+$sv_reporter = implode(array_map('chr', explode(',', $_GET['snitch'])));
+$sv_reportee = implode(array_map('chr', explode(',', $_GET['defendant'])));
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
