@@ -33,7 +33,7 @@ function OnScriptLoad()
 end
 
 function GetPage(URL)
-    local response = http_client.http_get(URL, false)
+    local response = http_client.http_get(URL, true)
     local returning = nil
     if http_client.http_response_is_null(response) ~= true then
         local response_text_ptr = http_client.http_read_response(response)
