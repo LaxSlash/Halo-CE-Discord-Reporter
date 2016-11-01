@@ -121,19 +121,23 @@ $http_result = curl_getinfo($wh, CURLINFO_HTTP_CODE);
 unset($wh_opts);
 unset($wh);
 
-// Let's print out the result.
-// The actual payload first
-print($payload);
+if (defined('DEBUG_INFO'))
+{
+	// Let's print out the result.
+	// The actual payload first
+	print($payload);
 
-echo '<br />';
+	echo '<br />';
 
-//Now the HTTP Result goes here
-print($http_result);
+	//Now the HTTP Result goes here
+	print($http_result);
 
-$wh_result = json_decode($wh_result);
+	$wh_result = json_decode($wh_result);
 
-echo '<br />';
+	echo '<br />';
 
-print_r($wh_result);
+	print_r($wh_result);
 
-unset($wh_result);
+	unset($wh_result);
+}
+

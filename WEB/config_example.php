@@ -18,4 +18,8 @@ $allowed_ips = array(
 
 // URL for the webhook.
 $wh_url = '';
+
+// Debug info enable/disable. Reccommended disabled for production use. Uncomment to enable.
+//define('DEBUG_INFO', true);
+
 ?>
