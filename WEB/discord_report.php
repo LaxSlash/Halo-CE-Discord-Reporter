@@ -120,3 +120,14 @@ $http_result = curl_getinfo($wh, CURLINFO_HTTP_CODE);
 
 unset($wh_opts);
 unset($wh);
+
+// Let's print out the result.
+print($http_result);
+
+$wh_result = json_decode($wh_result);
+
+echo '<br />';
+
+print_r($wh_result);
+
+unset($wh_result);
