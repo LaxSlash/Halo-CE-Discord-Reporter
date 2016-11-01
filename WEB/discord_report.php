@@ -122,6 +122,12 @@ unset($wh_opts);
 unset($wh);
 
 // Let's print out the result.
+// The actual payload first
+print($payload);
+
+echo '<br />';
+
+//Now the HTTP Result goes here
 print($http_result);
 
 $wh_result = json_decode($wh_result);
