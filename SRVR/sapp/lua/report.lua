@@ -50,33 +50,37 @@ function OnChat(PlayerIndex, Message)
 		allow = false
 		if timeout[PlayerIndex] < 1 then
 			if tonumber(t[2]) then
-				timeout[PlayerIndex] = timeout_time * 60
-				local Suspect = tonumber(t[2])
-				local sv_ip = tostring(GetPage("https://api.ipify.org/"))..":"..read_word(0x5A9190)
-				local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
-				local R_Name, R_Hash, R_IP = get_name_byte(PlayerIndex), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
-				local S_Name, S_Hash, S_IP = get_name_byte(Suspect), get_var(Suspect, "$hash"), get_var(Suspect, "$ip")
-				local Complaint = {}
-				for i = 0,#t do
-					if i > 2 then
-						Complaint[i-2] = t[i] .. "%20"
+				if PlayerIndex ~= tonumber(t[2]) then
+					timeout[PlayerIndex] = timeout_time * 60
+					local Suspect = tonumber(t[2])
+					local sv_ip = tostring(GetPage("https://api.ipify.org/"))..":"..read_word(0x5A9190)
+					local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
+					local R_Name, R_Hash, R_IP = get_name_byte(PlayerIndex), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
+					local S_Name, S_Hash, S_IP = get_name_byte(Suspect), get_var(Suspect, "$hash"), get_var(Suspect, "$ip")
+					local Complaint = {}
+					for i = 0,#t do
+						if i > 2 then
+							Complaint[i-2] = t[i] .. "%20"
+						end
 					end
+					local Msg = table.concat(Complaint)
+					local report = string.format([[
+					%s
+					name="%s"
+					&sv_ip=%s
+					&snitch=%s
+					&defendant=%s
+					&verify_key=%s
+					&snitch_hash=%s
+					&snitch_ip=%s
+					&defendant_hash=%s
+					&defendant_ip=%s
+					&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Msg)
+					local data = GetPage(report)
+					say(PlayerIndex, "Thank you! Your report submited!")
+				else
+					say(PlayerIndex, "Error: You cannot report yourself.")
 				end
-				local Msg = table.concat(Complaint)
-				local report = string.format([[
-				%s
-				name="%s"
-				&sv_ip=%s
-				&snitch=%s
-				&defendant=%s
-				&verify_key=%s
-				&snitch_hash=%s
-				&snitch_ip=%s
-				&defendant_hash=%s
-				&defendant_ip=%s
-				&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Msg)
-				local data = GetPage(report)
-				say(PlayerIndex, "Thank you! Your report submited!")
 			else
 				say(PlayerIndex, "Error: You must use a playes number to report them.\nUse the command /pl to find their number.")
 			end
