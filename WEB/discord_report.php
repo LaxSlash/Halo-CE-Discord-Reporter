@@ -88,11 +88,11 @@ $payload_ary = array(
 					'value'			=>	$snitch_ip,
 				),
 				array(
-					'name'			=>	'Reported CD Hash:',
+					'name'			=>	'Suspect CD Hash:',
 					'value'			=>	$defendant_hash,
 				),
 				array(
-					'name'			=>	'Reported IP Address:',
+					'name'			=>	'Suspect IP Address:',
 					'value'			=>	$defendant_ip,
 				),
 			),
