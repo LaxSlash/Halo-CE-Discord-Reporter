@@ -4,6 +4,9 @@
  *
  */
 
+// We need to set the headers for the chr() function to properly work.
+header('Content-type: text/html; charset=utf-8');
+
 // Includes go here for things like functions and configuration files.
 require_once('config.php');
 
@@ -20,9 +23,11 @@ if (defined('SUPER_SECURE'))
 $sv_name = $_GET['name'];
 $sv_ip = $_GET['sv_ip'];
 // http://stackoverflow.com/questions/14148054/php-get-string-text-from-bytes
+// http://stackoverflow.com/questions/40356291/array-map-causing-issues-with-extended-ascii-for-chr-php
+// http://stackoverflow.com/questions/32864975/php-chr-function-issue-with-special-characters
 // This should be interesting...
-$sv_reporter = implode(array_map('chr', explode(',', $_GET['snitch'])));
-$sv_reportee = implode(array_map('chr', explode(',', $_GET['defendant'])));
+$sv_reporter = utf8_encode(implode(array_map('chr', explode(',', $_GET['snitch']))));
+$sv_reportee = utf8_encode(implode(array_map('chr', explode(',', $_GET['defendant']))));
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
