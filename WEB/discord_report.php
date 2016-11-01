@@ -99,7 +99,7 @@ $payload_ary = array(
 		),
 	),
 );
-$payload = json_encode($payload);
+$payload = json_encode($payload_ary);
 unset($payload_ary);
 
 // Send the webhook payload.
