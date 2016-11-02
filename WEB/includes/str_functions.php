@@ -7,6 +7,11 @@
  *
  */
 
+if (!defined('IN_REPORTER'))
+{
+	exit();
+}
+
 /**
  * Function to take a string of comma seperated bytes, and transform it into an actual text.
  * @param		string		$string		A string of comma seperated bytes.

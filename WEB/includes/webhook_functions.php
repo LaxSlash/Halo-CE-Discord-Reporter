@@ -7,6 +7,11 @@
  *
  */
 
+if (!defined('IN_REPORTER'))
+{
+	exit();
+}
+
 /**
  * Send a webhook to Discord.
  *

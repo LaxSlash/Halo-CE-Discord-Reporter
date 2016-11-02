@@ -10,6 +10,9 @@
 // We need to set the headers for the chr() function to properly work.
 header('Content-type: text/html; charset=utf-8');
 
+// We're actually in the application. Everything is safe.
+define('IN_REPORTER', true);
+
 // Includes go here for things like functions and configuration files.
 require_once('config.php');
 require_once('includes/functions.php');

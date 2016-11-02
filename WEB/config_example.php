@@ -7,6 +7,11 @@
  *
  */
 
+if (!defined('IN_REPORTER'))
+{
+	exit();
+}
+
 // Configuration for the Halo CE Reporting application
 
 // Set a server verification key here that will be checked to verify incoming input.

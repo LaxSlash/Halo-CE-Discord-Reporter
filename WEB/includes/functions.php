@@ -7,6 +7,11 @@
  *
  */
 
+if (!defined('IN_REPORTER'))
+{
+	exit();
+}
+
 require('str_functions.php');
 require('webhook_functions.php');
 ?>
