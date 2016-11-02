@@ -32,7 +32,7 @@ function send_webhook($wh_url, $payload)
 		CURLOPT_RETURNTRANSFER	=>	true,
 		CURLOPT_HTTPHEADER		=>	array('Content-type: application/json'),
 	);
-	curlopt_set_array($wh, $wh_opts);
+	curl_setopt_array($wh, $wh_opts);
 
 	// Execute.
 	$wh_result = curl_exec($wh); // This is what comes back from Discord.
