@@ -40,16 +40,16 @@ $data['defendant_ip'] = $_GET['defendant_ip'];
 // Escape all data if not already done
 if (get_magic_quotes_gpc() == false)
 {
-	$data['sv_name'] = addslashes($sv_name);
-	$data['sv_ip'] = addslashes($sv_ip);
-	$data['sv_reporter'] = addslashes($sv_reporter);
-	$data['sv_reportee'] = addslashes($sv_reportee);
-	$data['sv_verification_key'] = addslashes($sv_verification_key);
-	$data['snitch_hash'] = addslashes($snitch_hash);
-	$data['snitch_ip'] = addslashes($snitch_ip);
-	$data['snich_msg'] = addslashes($snitch_msg);
-	$data['defendant_hash'] = addslashes($defendant_hash);
-	$data['defendant_ip'] = addslashes($defendant_ip);
+	$data['sv_name'] = addslashes($data['sv_name']);
+	$data['sv_ip'] = addslashes($data['sv_ip']);
+	$data['sv_reporter'] = addslashes($data['sv_reporter']);
+	$data['sv_reportee'] = addslashes($data['sv_reportee']);
+	$data['sv_verification_key'] = addslashes($data['sv_verification_key']);
+	$data['snitch_hash'] = addslashes($data['snitch_hash']);
+	$data['snitch_ip'] = addslashes($data['snitch_ip']);
+	$data['snich_msg'] = addslashes($data['snitch_msg']);
+	$data['defendant_hash'] = addslashes($data['defendant_hash']);
+	$data['defendant_ip'] = addslashes($data['defendant_ip']);
 }
 
 // The URL should look like this: http://www.site.tld/discord_report.php
