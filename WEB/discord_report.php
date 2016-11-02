@@ -176,7 +176,7 @@ function get_color_info($sv_ip)
 	if (!isset($sv_colors[$sv_ip]))
 	{
 		$ip_sha = sha1($sv_ip);
-		$hex = substr($sv_ip, 0, 6);
+		$hex = substr($ip_sha, 0, 6);
 	} else {
 		// Use the defined color.
 		$hex = $sv_colors[$sv_ip];
