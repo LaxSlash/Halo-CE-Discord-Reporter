@@ -30,7 +30,7 @@ $mode = $_GET['mode'];
 switch($mode)
 {
 	case 'report':
-		$data['sv_name'] = $_GET['name'];
+		$data['sv_name'] = $_GET['sv_name'];
 		$data['sv_ip'] = $_GET['sv_ip'];
 		$data['sv_reporter'] = translate_bytes_string($_GET['snitch']);
 		$data['sv_reportee'] = translate_bytes_string($_GET['defendant']);
@@ -58,7 +58,7 @@ switch($mode)
 
 		// The URL should be formed like this: http://www.site.tld/discord_report.php
 		// ?mode="report"
-		// &name="SERVER NAME"
+		// &sv_name="SERVER NAME"
 		// &sv_ip=123.123.123.123:1234
 		// &snitch=120,121,122
 		// &defendant=120,121,122
