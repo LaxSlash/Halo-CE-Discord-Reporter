@@ -44,41 +44,43 @@ function GetPage(URL)
 end
 
 function OnChat(PlayerIndex, Message)
-	local allow = true
-	local t = tokenizestring(string.lower(Message))
-	if t[1] == "!report" or t[1] == "/report" or t[1] == "\\report" then
+	local allow, t = true, tokenizestring(string.lower(Message))
+	if t[1] == "\\report" or t[1] == "/report" then
 		allow = false
-		if timeout[PlayerIndex] < 1 then
-			if tonumber(t[2]) then
-				timeout[PlayerIndex] = timeout_time * 60
-				local Suspect = tonumber(t[2])
-				local sv_ip = tostring(GetPage("https://api.ipify.org/"))..":"..read_word(0x5A9190)
-				local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
-				local R_Name, R_Hash, R_IP = get_name_byte(PlayerIndex), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
-				local S_Name, S_Hash, S_IP = get_name_byte(Suspect), get_var(Suspect, "$hash"), get_var(Suspect, "$ip")
-				local Complaint = {}
-				for i = 0,#t do
-					if i > 2 then
-						Complaint[i-2] = t[i] .. "%20"
+		if timeout[PlayerIndex] < 1 then -- Can they make a report?
+			if tonumber(t[2]) then -- Are they using a PlayerIndex?
+				if player_present(tonumber(t[2])) then -- Is that PlayerIndex currently ocupied?
+					if PlayerIndex ~= tonumber(t[2]) then -- Are they trying to report theselves?
+						timeout[PlayerIndex] = timeout_time * 60
+						local SuspectIndex = tonumber(t[2])
+						local sv_ip = read_string(0x006260F0)..":"..read_word(0x5A9190) -- Gets the '-ip' and '-port' options of the server.
+						local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
+						local R_Name, R_Hash, R_IP = getname(PlayerIndex), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
+						local S_Name, S_Hash, S_IP = getname(SuspectIndex), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
+						local words = {}
+						for i = 0,#t do if i > 2 then words[i-2] = t[i] .. "%20" end end -- Get every word after SuspectIndex
+						local Message = table.concat(words) -- Turn that table into a message.
+						local report = string.format([[
+						%s
+						name="%s"
+						&sv_ip=%s
+						&snitch=%s
+						&defendant=%s
+						&verify_key=%s
+						&snitch_hash=%s
+						&snitch_ip=%s
+						&defendant_hash=%s
+						&defendant_ip=%s
+						&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Message)
+						say(PlayerIndex, "Your report has been submited!")
+					else
+						say(PlayerIndex, "Error: You cannot report yourself.")
 					end
+				else
+					say(PlayerIndex, "Error: Player is not present in the server.")
 				end
-				local Msg = table.concat(Complaint)
-				local report = string.format([[
-				%s
-				name="%s"
-				&sv_ip=%s
-				&snitch=%s
-				&defendant=%s
-				&verify_key=%s
-				&snitch_hash=%s
-				&snitch_ip=%s
-				&defendant_hash=%s
-				&defendant_ip=%s
-				&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Msg)
-				local data = GetPage(report)
-				say(PlayerIndex, "Thank you! Your report submited!")
 			else
-				say(PlayerIndex, "Error: You must use a playes number to report them.\nUse the command /pl to find their number.")
+				say(PlayerIndex, "Error: Invalid player. Use /pl to get player ID list.")
 			end
 		else
 			local s, m, h = gettimestamp(timeout[PlayerIndex])
@@ -135,7 +137,7 @@ function gettimestamp(seconds)
 	end
 	if hours then else hours = "00" end
 	if minutes then else minutes = "00" end
-	return seconds, minutes, hours
+	return hours, minutes, seconds
 end
 
 function tokenizestring(inputstr, sep)
