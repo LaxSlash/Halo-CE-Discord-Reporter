@@ -25,105 +25,118 @@ if (defined('SUPER_SECURE'))
 
 // Setup variables
 $data = array();
+$mode = $_GET['mode'];
 
-$data['sv_name'] = $_GET['name'];
-$data['sv_ip'] = $_GET['sv_ip'];
-$data['sv_reporter'] = translate_bytes_string($_GET['snitch']);
-$data['sv_reportee'] = translate_bytes_string($_GET['defendant']);
-$data['sv_verification_key'] = $_GET['verify_key'];
-$data['snitch_hash'] = $_GET['snitch_hash'];
-$data['snitch_ip'] = $_GET['snitch_ip'];
-$data['snitch_msg'] = translate_bytes_string($_GET['snitch_msg']);
-$data['defendant_hash'] = $_GET['defendant_hash'];
-$data['defendant_ip'] = $_GET['defendant_ip'];
-
-// Escape all data if not already done
-if (get_magic_quotes_gpc() == false)
+switch($mode)
 {
-	$data['sv_name'] = addslashes($data['sv_name']);
-	$data['sv_ip'] = addslashes($data['sv_ip']);
-	$data['sv_reporter'] = addslashes($data['sv_reporter']);
-	$data['sv_reportee'] = addslashes($data['sv_reportee']);
-	$data['sv_verification_key'] = addslashes($data['sv_verification_key']);
-	$data['snitch_hash'] = addslashes($data['snitch_hash']);
-	$data['snitch_ip'] = addslashes($data['snitch_ip']);
-	$data['snitch_msg'] = addslashes($data['snitch_msg']);
-	$data['defendant_hash'] = addslashes($data['defendant_hash']);
-	$data['defendant_ip'] = addslashes($data['defendant_ip']);
-}
+	case 'report':
+		$data['sv_name'] = $_GET['name'];
+		$data['sv_ip'] = $_GET['sv_ip'];
+		$data['sv_reporter'] = translate_bytes_string($_GET['snitch']);
+		$data['sv_reportee'] = translate_bytes_string($_GET['defendant']);
+		$data['sv_verification_key'] = $_GET['verify_key'];
+		$data['snitch_hash'] = $_GET['snitch_hash'];
+		$data['snitch_ip'] = $_GET['snitch_ip'];
+		$data['snitch_msg'] = translate_bytes_string($_GET['snitch_msg']);
+		$data['defendant_hash'] = $_GET['defendant_hash'];
+		$data['defendant_ip'] = $_GET['defendant_ip'];
 
-// The URL should look like this: http://www.site.tld/discord_report.php
-// ?name="SERVER NAME"
-// &sv_ip=123.123.123.123:1234
-// &snitch="New001"
-// &defendant="New002"
-// &verify_key=thisIsSomeKey
-// &snitch_hash=lettershere
-// &snitch_ip=123.123.123.123
-// &snitch_msg="Some message goes here."
-// &defendant_hash=someMoreLettersGoHere
-// &defendant_ip=123.123.123.123
+		// Escape all data if not already done
+		if (get_magic_quotes_gpc() == false)
+		{
+			$data['sv_name'] = addslashes($data['sv_name']);
+			$data['sv_ip'] = addslashes($data['sv_ip']);
+			$data['sv_reporter'] = addslashes($data['sv_reporter']);
+			$data['sv_reportee'] = addslashes($data['sv_reportee']);
+			$data['sv_verification_key'] = addslashes($data['sv_verification_key']);
+			$data['snitch_hash'] = addslashes($data['snitch_hash']);
+			$data['snitch_ip'] = addslashes($data['snitch_ip']);
+			$data['snitch_msg'] = addslashes($data['snitch_msg']);
+			$data['defendant_hash'] = addslashes($data['defendant_hash']);
+			$data['defendant_ip'] = addslashes($data['defendant_ip']);
+		}
 
-// Basic Verification
-if ($sv_verification_key != $data['check_key'])
-{
-	die('Incorrect verification key.');
-}
+		// The URL should be formed like this: http://www.site.tld/discord_report.php
+		// ?mode="report"
+		// &name="SERVER NAME"
+		// &sv_ip=123.123.123.123:1234
+		// &snitch=120,121,122
+		// &defendant=120,121,122
+		// &verify_key=thisIsSomeKey
+		// &snitch_hash=lettershere
+		// &snitch_ip=123.123.123.123
+		// &snitch_msg=120,121,122
+		// &defendant_hash=someMoreLettersGoHere
+		// &defendant_ip=123.123.123.123
 
-if ($data['sv_name'] == ""
-	||
-	$data['sv_reporter'] == ""
-	||
-	$data['sv_reportee'] == ""
-	||
-	$data['snitch_hash'] == ""
-	||
-	$data['snitch_ip'] == ""
-	||
-	$data['defendant_hash'] == ""
-	||
-	$data['defendant_ip'] == ""
-	||
-	$data['snitch_msg'] == ""
-	)
-{
-	die('One or more required fields are missing.');
-}
+		// Basic Verification
+		if ($sv_verification_key != $data['check_key'])
+		{
+			die('Incorrect verification key.');
+		}
 
-// Create the actual webhook payload.
-$payload_ary = array(
-	'content'	=>	'Administrator requested on server ' . $data['sv_name'],
-	'embeds'	=>	array(
-		array(
-			'type'			=>	'rich',														// This should always be rich, anyways.
-			'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
-			'color'			=>	get_color_info($data['sv_ip']),
-			'description'	=>	$data['snitch_msg'],
-			'fields'		=>	array(
+		if ($data['sv_name'] == ""
+			||
+			$data['sv_reporter'] == ""
+			||
+			$data['sv_reportee'] == ""
+			||
+			$data['snitch_hash'] == ""
+			||
+			$data['snitch_ip'] == ""
+			||
+			$data['defendant_hash'] == ""
+			||
+			$data['defendant_ip'] == ""
+			||
+			$data['snitch_msg'] == ""
+			)
+		{
+			die('One or more required fields are missing.');
+		}
+
+		// Create the actual webhook payload.
+		$payload_ary = array(
+			'content'	=>	'Administrator requested on server ' . $data['sv_name'],
+			'embeds'	=>	array(
 				array(
-					'name'			=>	'Server IP Address:',
-					'value'			=>	$data['sv_ip'],
-				),
-				array(
-					'name'			=>	'Reporter CD Hash:',
-					'value'			=>	$data['snitch_hash'],
-				),
-				array(
-					'name'			=>	'Reporter IP Address:',
-					'value'			=>	$data['snitch_ip'],
-				),
-				array(
-					'name'			=>	'Suspect CD Hash:',
-					'value'			=>	$data['defendant_hash'],
-				),
-				array(
-					'name'			=>	'Suspect IP Address:',
-					'value'			=>	$data['defendant_ip'],
+					'type'			=>	'rich',														// This should always be rich, anyways.
+					'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
+					'color'			=>	get_color_info($data['sv_ip']),
+					'description'	=>	$data['snitch_msg'],
+					'fields'		=>	array(
+						array(
+							'name'			=>	'Server IP Address:',
+							'value'			=>	$data['sv_ip'],
+						),
+						array(
+							'name'			=>	'Reporter CD Hash:',
+							'value'			=>	$data['snitch_hash'],
+						),
+						array(
+							'name'			=>	'Reporter IP Address:',
+							'value'			=>	$data['snitch_ip'],
+						),
+						array(
+							'name'			=>	'Suspect CD Hash:',
+							'value'			=>	$data['defendant_hash'],
+						),
+						array(
+							'name'			=>	'Suspect IP Address:',
+							'value'			=>	$data['defendant_ip'],
+						),
+					),
 				),
 			),
-		),
-	),
-);
+		);
+	break;
+	case 'notify':
+	break;
+	default:
+		exit('Invalid mode selected.');
+	break;
+}
+
 $payload = json_encode($payload_ary);
 unset($payload_ary);
 
@@ -131,7 +144,7 @@ unset($payload_ary);
 $wh = curl_init();
 
 $wh_opts = array(
-	CURLOPT_URL				=>	$wh_url,
+	CURLOPT_URL				=>	($mode == 'report') ? $report_wh_url : $notify_wh_url,
 	CURLOPT_POST			=>	true,
 	CURLOPT_RETURNTRANSFER	=>	true,
 	CURLOPT_POSTFIELDS		=>	$payload,
