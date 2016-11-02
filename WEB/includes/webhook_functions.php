@@ -44,7 +44,7 @@ function send_webhook($wh_url, $payload)
 	// Form the return.
 	if ($http_result == '204')
 	{
-		$rtrn = true;
+		$rtrn = false;
 	} else {
 		$rtrn = array(
 			'discord'	=>	json_decode($wh_result),
