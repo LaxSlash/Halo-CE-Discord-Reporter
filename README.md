@@ -20,8 +20,11 @@ Make sure that you do not give your verification key out to anyone. If you give 
 
 ## Lua Script Installation
 
+** Anticheat Server Administrators Read This **
+This lua script will _override_ the built-in SAPP /report command for Anticheat enabled servers. Please keep this in mind if you intend to install this on a server that employs Anticheat.
+
 ### Pre-requisites
-* SAPP Lua API must be version 1.10.0.0
+* SAPP Lua API must be version 1.10.0.0+
 * SAPP Version: 9.8+
 * SAPP HTTP Client created by 002 (Obtainable either in the dependencies folder, or at http://opencarnage.net/index.php?/topic/5998-sapp-http-client/)
 * Other dependencies in the "SRVR/dependencies" folder (Place these into your dedicated server .exe folder)
@@ -30,6 +33,7 @@ Make sure that you do not give your verification key out to anyone. If you give 
 1. In the LUA Script, set the Main_link to be the www location where you uploaded your reporter utility.
 2. Also in the lua script, set the Key to be the secret key you had set in your web configuration file.
 3. timeout_time can be set in minutes. Setting this value to 0 is not reccommended at all, as rapid fire reports can get your webhook and server IP Address blacklisted by Discord.
+4. In your SAPP init file, be sure that you have the line "setcmd pl -1" (no quotes).
 
 ### Usage
 To send a report, simply run the command "/pl" to get the target player's number, and then run "/report # [reason]" to submit the report.
