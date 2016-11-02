@@ -191,12 +191,18 @@ function get_color_info($sv_ip)
 {
 	require_once('config.php');
 
-	if (!isset($sv_colors[$sv_ip]['report']))
+	if (!isset($sv_colors[$sv_ip][$mode]))
 	{
-		$hex = $sv_colors['default']['report'];
+		if (isset($sv_colors['default'][$mode]))
+		{
+			$hex = $sv_colors['default'][$mode];
+		} else {
+			// No values found for this mode, just use black.
+			$hex = '000000';
+		}
 	} else {
 		// Use the defined color.
-		$hex = $sv_colors[$sv_ip]['report'];
+		$hex = $sv_colors[$sv_ip][$mode];
 	}
 
 	$dec = hexdec($hex);
