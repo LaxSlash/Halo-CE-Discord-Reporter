@@ -90,3 +90,27 @@ function get_color_info($sv_ip)
 
 	return $dec;
 }
+
+/**
+ * Get the target webhook URL.
+ *
+ * @param	string	$sv_ip	The IP Address and port of the server to get the URL for.
+ * @param	string	$mode	The current mode of the reporter to fetch the URL for.
+ * @param	string			The target URL of the webhook.
+ */
+function get_wh_url($sv_ip, $mode)
+{
+	// Requires the config file.
+	require_once('../config.php');
+
+	if (!isset($wh_urls[$sv_ip][$mode]))
+	{
+		// Get the default URL for this mode.
+		$url = $wh_urls['default'][$mode];
+	} else {
+		// Get this servers proper Webhook URL.
+		$url = $wh_urls[$sv_ip][$mode];
+	}
+
+	return $url;
+}

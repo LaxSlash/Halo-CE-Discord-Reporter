@@ -29,6 +29,18 @@ $allowed_ips = array(
 	'8.8.4.4',
 );
 
+// URL setup here. The key should be the server IP. The value is an array for 'report' and 'notify' values.
+// Remove the examples and setup your own. Default is used for any incoming IP Addresses and Ports not defined.
+$wh_urls = array(
+	'123.123.123.123:2305'	=>	array(
+		'notify'	=>	'',
+		'report'	=>	'',
+	),
+	'default'				=>	array(
+		'notify'	=>	'',
+		'report'	=>	'',
+	),
+)
 // URL for the reporting webhook.
 $report_wh_url = '';
 
