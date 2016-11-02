@@ -168,7 +168,8 @@ if (defined('DEBUG_INFO'))
 }
 
 /**
- * Generate the color that should be used for the embed in the Webhook. If no color is found in the config, one will be generated from the SHA1 of the server's IP Address.
+ * Generate the color that should be used for the embed in the Webhook. If no color is found in the config,
+ * use the default setting.
  *
  * @param	string	$sv_ip	The IP of the server to get the embed color information for.
  * @return	int				Return a DEC value for the requested HEX Code.
@@ -177,13 +178,12 @@ function get_color_info($sv_ip)
 {
 	require_once('config.php');
 
-	if (!isset($sv_colors[$sv_ip]))
+	if (!isset($sv_colors[$sv_ip]['report']))
 	{
-		$ip_sha = sha1($sv_ip);
-		$hex = substr($ip_sha, 0, 6);
+		$hex = $sv_colors['default']['report'];
 	} else {
 		// Use the defined color.
-		$hex = $sv_colors[$sv_ip];
+		$hex = $sv_colors[$sv_ip]['report'];
 	}
 
 	$dec = hexdec($hex);

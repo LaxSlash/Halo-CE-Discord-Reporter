@@ -27,11 +27,21 @@ $allowed_ips = array(
 // URL for the webhook.
 $wh_url = '';
 
-// Server colors. The first value should be the IP and Port of the oincoming server. The second value should be the HEX that you want to use (no prefixed # sign).
-// Remove the examples and set your own if desired. The default color will be generated based off of the incoming server IP Address.
+// Server colors. The key should be the server IP, the value an array containing a 'notify' color and a 'report' color.
+// Remove the examples and set your own if desired. The default colors are set by the 'default' key.
 $sv_colors = array(
-	'123.123.123.123:2300'	=>	'000000',
-	'123.123.123.123:2301'	=>	'FFFFFF',
+	'123.123.123.123:2305'	=>	array(
+		'notify'	=>	'FFFF00',
+		'report'	=>	'FF0000',
+	),
+	'123.123.123.123:2301'	=>	array(
+		'notify'	=>	'000000',
+		'report'	=>	'FFFFFF',
+	),
+	'default'				=>	array(
+		'notify'	=>	'FFFF00',
+		'report'	=>	'FF0000',
+	),
 );
 
 // Debug info enable/disable. Reccommended disabled for production use. Uncomment to enable.
