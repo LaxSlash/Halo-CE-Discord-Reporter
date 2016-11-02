@@ -67,7 +67,7 @@ switch($mode)
 		// &defendant_ip=123.123.123.123
 
 		// Basic Verification
-		if ($sv_verification_key != $data['check_key'])
+		if ($data['sv_verification_key'] != $check_key)
 		{
 			die('Incorrect verification key.');
 		}
