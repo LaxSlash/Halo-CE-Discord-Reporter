@@ -25,7 +25,7 @@ if (defined('SUPER_SECURE'))
 // Setup variables
 $sv_name = $_GET['name'];
 $sv_ip = $_GET['sv_ip'];
-$sv_reporter = translate_bytes_string($_GET['snitch');
+$sv_reporter = translate_bytes_string($_GET['snitch']);
 $sv_reportee = translate_bytes_string($_GET['defendant']);
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
