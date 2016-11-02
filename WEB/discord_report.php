@@ -13,6 +13,7 @@ header('Content-type: text/html; charset=utf-8');
 // Includes go here for things like functions and configuration files.
 require_once('config.php');
 require_once('includes/str_functions.php');
+require_once('includes/webhooks_functions.php');
 
 // Check that the requesting IP Address is an allowed IP Address.
 if (defined('SUPER_SECURE'))
@@ -140,73 +141,33 @@ switch($mode)
 $payload = json_encode($payload_ary);
 unset($payload_ary);
 
+// Get the proper URL here
+$wh_url = ($mode == 'report') ? $report_wh_url : $notify_wh_url;
+
 // Send the webhook payload.
-$wh = curl_init();
+$result = send_webhook($wh_url, $payload);
 
-$wh_opts = array(
-	CURLOPT_URL				=>	($mode == 'report') ? $report_wh_url : $notify_wh_url,
-	CURLOPT_POST			=>	true,
-	CURLOPT_RETURNTRANSFER	=>	true,
-	CURLOPT_POSTFIELDS		=>	$payload,
-	CURLOPT_HTTPHEADER		=>	array('Content-type: application/json'),
-);
-
-curl_setopt_array($wh, $wh_opts);
-
-$wh_result = curl_exec($wh);
-$http_result = curl_getinfo($wh, CURLINFO_HTTP_CODE);
-
-unset($wh_opts);
-unset($wh);
 unset($data);
 
 if (defined('DEBUG_INFO'))
 {
-	// Let's print out the result.
-	// The actual payload first
-	print($payload);
-
-	echo '<br />';
-
-	//Now the HTTP Result goes here
-	print($http_result);
-
-	$wh_result = json_decode($wh_result);
-
-	echo '<br />';
-
-	print_r($wh_result);
-
-	unset($wh_result);
-}
-
-/**
- * Generate the color that should be used for the embed in the Webhook. If no color is found in the config,
- * use the default setting.
- *
- * @param	string	$sv_ip	The IP of the server to get the embed color information for.
- * @return	int				Return a DEC value for the requested HEX Code.
- */
-function get_color_info($sv_ip)
-{
-	require_once('config.php');
-
-	if (!isset($sv_colors[$sv_ip][$mode]))
+	if ($result = false)
 	{
-		if (isset($sv_colors['default'][$mode]))
-		{
-			$hex = $sv_colors['default'][$mode];
-		} else {
-			// No values found for this mode, just use black.
-			$hex = '000000';
-		}
+		exit('Webhook sent and posted successfully.');
 	} else {
-		// Use the defined color.
-		$hex = $sv_colors[$sv_ip][$mode];
+		// Let's print out the result.
+		// The actual payload first
+		echo '<b>Payload:</b> ' . $payload;
+		echo '<br />';
+
+		//Now the HTTP Result goes here
+		echo '<b>HTTP Code:</b> ' . $result['http'];
+		echo '<br />';
+		echo '<b>Discord Returns:</b> ' . $wh_result;
+		unset($result);
+
+		// Show them what they need to do for support.
+		echo '<br />';
+		echo '<b>For support, please go to <a href="https://github.com/LaxSlash/Halo-CE-Discord-Reporter">here</a>, and read the README, check the Wiki, and if help is still needed, create an Issue.</b>';
 	}
-
-	$dec = hexdec($hex);
-
-	return $dec;
 }
-
