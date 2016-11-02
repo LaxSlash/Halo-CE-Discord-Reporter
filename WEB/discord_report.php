@@ -47,7 +47,7 @@ if (get_magic_quotes_gpc() == false)
 	$data['sv_verification_key'] = addslashes($data['sv_verification_key']);
 	$data['snitch_hash'] = addslashes($data['snitch_hash']);
 	$data['snitch_ip'] = addslashes($data['snitch_ip']);
-	$data['snich_msg'] = addslashes($data['snitch_msg']);
+	$data['snitch_msg'] = addslashes($data['snitch_msg']);
 	$data['defendant_hash'] = addslashes($data['defendant_hash']);
 	$data['defendant_ip'] = addslashes($data['defendant_ip']);
 }
