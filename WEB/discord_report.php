@@ -138,7 +138,7 @@ $payload = json_encode($payload_ary);
 unset($payload_ary);
 
 // Get the proper URL here for the IP:Port and the $mode.
-$wh_url = get_wh_url($sv_ip, $mode);
+$wh_url = get_wh_url($data['sv_ip'], $mode);
 
 // Send the webhook payload.
 $result = send_webhook($wh_url, $payload);
