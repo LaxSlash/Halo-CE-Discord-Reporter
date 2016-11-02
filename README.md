@@ -34,14 +34,14 @@ Make sure that you do not give your verification key out to anyone. If you give 
 ### Usage
 To send a report, simply run the command "/pl" to get the target player's number, and then run "/report # [reason]" to submit the report.
 
-# Support and Suggestions:
+## Support and Suggestions:
 For support and suggestions for the script, please submit an issue on the Git Repo (https://github.com/LaxSlash/Halo-CE-Discord-Reporter).
 
-# Credits:
+## Credits:
 PHP Script: «DG»MyHogs (LaxSlash)
 
 Lua Script: =DG=Devieth (Skylace)
 
-# License:
+## License:
 The web script and the Lua script are released under the GPL-3.0 license. All dependencies are released under their respective licensing terms and conditions,
 and are the property of their respective authors and developers.
