@@ -164,6 +164,6 @@ if (defined('DEBUG_INFO'))
 
 		// Show them what they need to do for support.
 		echo '<br />';
-		echo '<b>For support, please go to <a href="https://github.com/LaxSlash/Halo-CE-Discord-Reporter">here</a>, and read the README, check the Wiki, and if help is still needed, create an Issue.</b>';
+		echo '<b>For support, please go <a href="https://github.com/LaxSlash/Halo-CE-Discord-Reporter">here</a>, and read the README, check the Wiki, and if help is still needed, create an Issue.</b>';
 	}
 }
