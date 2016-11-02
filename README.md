@@ -31,7 +31,7 @@ This lua script will _override_ the built-in SAPP /report command for Anticheat 
 * The .dll files included inside of dll_helpers.zip (Place these into your dedicated server .exe folder)
 
 ### Configuration
-1. In the LUA Script, set the Main_link to be the www location where you uploaded your reporter utility.
+1. In the lua Script, set the Main_link to be the www location where you uploaded your reporter utility.
 2. Also in the lua script, set the Key to be the secret key you had set in your web configuration file.
 3. timeout_time can be set in minutes. Setting this value to 0 is not reccommended at all, as rapid fire reports can get your webhook and server IP Address blacklisted by Discord.
 4. In your SAPP init file, be sure that you have the line "setcmd pl -1" (no quotes).
@@ -45,7 +45,7 @@ For support and suggestions for the script, please submit an issue on the Git Re
 ## Credits:
 PHP Script: «DG»MyHogs (LaxSlash)
 
-Lua Script: =DG=Devieth (Skylace)
+Lua Script: =DG=Devieth (it300)
 
 ## License:
 The web script and the Lua script are released under the GPL-3.0 license. All dependencies are released under their respective licensing terms and conditions,
