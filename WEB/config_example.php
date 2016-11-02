@@ -42,12 +42,6 @@ $wh_urls = array(
 	),
 );
 
-// URL for the reporting webhook.
-$report_wh_url = '';
-
-// URL for the notifications webhook.
-$notify_wh_url = '';
-
 // Server colors. The key should be the server IP, the value an array containing a 'notify' color and a 'report' color.
 // Remove the examples and set your own if desired. The default colors are set by the 'default' key.
 $sv_colors = array(
