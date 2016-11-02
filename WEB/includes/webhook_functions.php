@@ -66,9 +66,10 @@ function send_webhook($wh_url, $payload)
  * use the default setting.
  *
  * @param	string	$sv_ip	The IP of the server to get the embed color information for.
+ * @param	string	$mode	The mode to get the color for.
  * @return	int				Return a DEC value for the requested HEX Code.
  */
-function get_color_info($sv_ip)
+function get_color_info($sv_ip, $mode)
 {
 	require_once('../config.php');
 
