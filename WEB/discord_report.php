@@ -23,30 +23,32 @@ if (defined('SUPER_SECURE'))
 }
 
 // Setup variables
-$sv_name = $_GET['name'];
-$sv_ip = $_GET['sv_ip'];
-$sv_reporter = translate_bytes_string($_GET['snitch']);
-$sv_reportee = translate_bytes_string($_GET['defendant']);
-$sv_verification_key = $_GET['verify_key'];
-$snitch_hash = $_GET['snitch_hash'];
-$snitch_ip = $_GET['snitch_ip'];
-$snitch_msg = translate_bytes_string($_GET['snitch_msg']);
-$defendant_hash = $_GET['defendant_hash'];
-$defendant_ip = $_GET['defendant_ip'];
+$data = array();
+
+$data['sv_name'] = $_GET['name'];
+$data['sv_ip'] = $_GET['sv_ip'];
+$data['sv_reporter'] = translate_bytes_string($_GET['snitch']);
+$data['sv_reportee'] = translate_bytes_string($_GET['defendant']);
+$data['sv_verification_key'] = $_GET['verify_key'];
+$data['snitch_hash'] = $_GET['snitch_hash'];
+$data['snitch_ip'] = $_GET['snitch_ip'];
+$data['snitch_msg'] = translate_bytes_string($_GET['snitch_msg']);
+$data['defendant_hash'] = $_GET['defendant_hash'];
+$data['defendant_ip'] = $_GET['defendant_ip'];
 
 // Escape all data if not already done
 if (get_magic_quotes_gpc() == false)
 {
-	$sv_name = addslashes($sv_name);
-	$sv_ip = addslashes($sv_ip);
-	$sv_reporter = addslashes($sv_reporter);
-	$sv_reportee = addslashes($sv_reportee);
-	$sv_verification_key = addslashes($sv_verification_key);
-	$snitch_hash = addslashes($snitch_hash);
-	$snitch_ip = addslashes($snitch_ip);
-	$snich_msg = addslashes($snitch_msg);
-	$defendant_hash = addslashes($defendant_hash);
-	$defendant_ip = addslashes($defendant_ip);
+	$data['sv_name'] = addslashes($sv_name);
+	$data['sv_ip'] = addslashes($sv_ip);
+	$data['sv_reporter'] = addslashes($sv_reporter);
+	$data['sv_reportee'] = addslashes($sv_reportee);
+	$data['sv_verification_key'] = addslashes($sv_verification_key);
+	$data['snitch_hash'] = addslashes($snitch_hash);
+	$data['snitch_ip'] = addslashes($snitch_ip);
+	$data['snich_msg'] = addslashes($snitch_msg);
+	$data['defendant_hash'] = addslashes($defendant_hash);
+	$data['defendant_ip'] = addslashes($defendant_ip);
 }
 
 // The URL should look like this: http://www.site.tld/discord_report.php
@@ -67,39 +69,52 @@ if ($sv_verification_key != $check_key)
 	die('Incorrect verification key.');
 }
 
-if ($sv_name == "" || $sv_reporter == "" || $sv_reportee == "" || $snitch_hash == "" || $snitch_ip == "" || $defendant_hash == "" || $defendant_ip == "")
+if ($data['sv_name'] == ""
+	||
+	$data['sv_reporter'] == ""
+	||
+	$data['sv_reportee'] == ""
+	||
+	$data['snitch_hash'] == ""
+	||
+	$data['snitch_ip'] == ""
+	||
+	$data['defendant_hash'] == ""
+	||
+	$data['defendant_ip'] == ""
+	)
 {
 	die('One or more required fields are missing.');
 }
 
 // Create the actual webhook payload.
 $payload_ary = array(
-	'content'	=>	'Administrator requested on server ' . $sv_name,
+	'content'	=>	'Administrator requested on server ' . $data['sv_name'],
 	'embeds'	=>	array(
 		array(
 			'type'			=>	'rich',														// This should always be rich, anyways.
-			'title'			=>	'Report from ' . $sv_reporter . ' against ' . $sv_reportee,
-			'description'	=>	$snitch_msg,
+			'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
+			'description'	=>	$data['snitch_msg'],
 			'fields'		=>	array(
 				array(
 					'name'			=>	'Server IP Address:',
-					'value'			=>	$sv_ip,
+					'value'			=>	$data['sv_ip'],
 				),
 				array(
 					'name'			=>	'Reporter CD Hash:',
-					'value'			=>	$snitch_hash,
+					'value'			=>	$data['snitch_hash'],
 				),
 				array(
 					'name'			=>	'Reporter IP Address:',
-					'value'			=>	$snitch_ip,
+					'value'			=>	$data['snitch_ip'],
 				),
 				array(
 					'name'			=>	'Suspect CD Hash:',
-					'value'			=>	$defendant_hash,
+					'value'			=>	$data['defendant_hash'],
 				),
 				array(
 					'name'			=>	'Suspect IP Address:',
-					'value'			=>	$defendant_ip,
+					'value'			=>	$data['defendant_ip'],
 				),
 			),
 		),
