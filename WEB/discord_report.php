@@ -94,6 +94,7 @@ $payload_ary = array(
 		array(
 			'type'			=>	'rich',														// This should always be rich, anyways.
 			'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
+			'color'			=>	get_color_info($data['sv_ip']),
 			'description'	=>	$data['snitch_msg'],
 			'fields'		=>	array(
 				array(
@@ -141,6 +142,7 @@ $http_result = curl_getinfo($wh, CURLINFO_HTTP_CODE);
 
 unset($wh_opts);
 unset($wh);
+unset($data);
 
 if (defined('DEBUG_INFO'))
 {
@@ -160,5 +162,24 @@ if (defined('DEBUG_INFO'))
 	print_r($wh_result);
 
 	unset($wh_result);
+}
+
+/**
+ * Generate the color that should be used for the embed in the Webhook.
+ */
+function get_color_info($sv_ip)
+{
+	if (!isset($sv_colors[$sv_ip]))
+	{
+		$ip_sha = sha1($sv_ip);
+		$hex = substr($sv_ip, 0, 6);
+	} else {
+		// Use the defined color.
+		$hex = $sv_colors[$sv_ip];
+	}
+
+	$dec = hexdec($hex);
+
+	return $dec;
 }
 
