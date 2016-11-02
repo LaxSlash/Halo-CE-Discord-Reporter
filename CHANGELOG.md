@@ -1,10 +1,14 @@
 # CHANGELOG
 
 ## Version 1.0.0 BETA 2
-  - **[FIX]** Send the report message as a string of bytes to avoid a server crash when a report message contains special characters. (PHP/Lua)
+  - **[NEW]** Added coloring for the webhook embeds based off of the server IP:Port and mode. A default is also settable. (PHP)
+  - **[NEW]** Added a notify mode for things like bans, aimbot scores, kicks, etc. (PHP/Lua)
   - **[ENHANCEMENT]** Clean up code, add into function files. (PHP)
   - **[ENHANCEMENT]** Use a $data array for all of the variables. (PHP)
-  - **[NEW]** Added coloring for the webhook embeds based off of either the Server IP or a preset color in the config file. (PHP)
+  - **[ENHANCEMENT]** Webhook URLs are now handled based on IP and Mode. A default is also settable (PHP)
+  - **[ENHANCEMENT]** The Report URL is also now required by the PHP Script. (PHP)
+  - **[ENHANCEMENT]** The name vairable should now be sent as sv_name from the Lua script into the URL. (PHP/Lua)
+  - **[FIX]** Send and parse the report message and server name as a string of bytes to avoid a server crash when a report message contains special characters. (PHP/Lua)
 
 ## Version 1.0.0 BETA 1
   - Initial Release
