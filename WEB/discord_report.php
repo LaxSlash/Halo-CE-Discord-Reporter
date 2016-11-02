@@ -25,16 +25,12 @@ if (defined('SUPER_SECURE'))
 // Setup variables
 $sv_name = $_GET['name'];
 $sv_ip = $_GET['sv_ip'];
-// http://stackoverflow.com/questions/14148054/php-get-string-text-from-bytes
-// http://stackoverflow.com/questions/40356291/array-map-causing-issues-with-extended-ascii-for-chr-php
-// http://stackoverflow.com/questions/32864975/php-chr-function-issue-with-special-characters
-// This should be interesting...
-$sv_reporter = utf8_encode(implode(array_map('chr', explode(',', $_GET['snitch']))));
-$sv_reportee = utf8_encode(implode(array_map('chr', explode(',', $_GET['defendant']))));
+$sv_reporter = translate_bytes_string($_GET['snitch');
+$sv_reportee = translate_bytes_string($_GET['defendant']);
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
-$snitch_msg = utf8_encode(implode(array_map('chr', explode(',', $_GET['snitch_msg']))));
+$snitch_msg = transslate_bytes_string($_GET['snitch_msg']);
 $defendant_hash = $_GET['defendant_hash'];
 $defendant_ip = $_GET['defendant_ip'];
 
