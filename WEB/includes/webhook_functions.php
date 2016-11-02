@@ -71,7 +71,7 @@ function send_webhook($wh_url, $payload)
  */
 function get_color_info($sv_ip, $mode)
 {
-	require_once('../config.php');
+	require_once('config.php');
 
 	if (!isset($sv_colors[$sv_ip][$mode]))
 	{
@@ -102,7 +102,7 @@ function get_color_info($sv_ip, $mode)
 function get_wh_url($sv_ip, $mode)
 {
 	// Requires the config file.
-	require_once('../config.php');
+	require_once('config.php');
 
 	if (!isset($wh_urls[$sv_ip][$mode]))
 	{
