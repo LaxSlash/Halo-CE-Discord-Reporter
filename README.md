@@ -27,8 +27,8 @@ This lua script will _override_ the built-in SAPP /report command for Anticheat 
 ### Pre-requisites
 * SAPP Lua API must be version 1.10.0.0+
 * SAPP Version: 9.8+
-* SAPP HTTP Client created by 002 (Obtainable either in the dependencies folder, or at http://opencarnage.net/index.php?/topic/5998-sapp-http-client/)
-* Other dependencies in the "SRVR/dependencies" folder (Place these into your dedicated server .exe folder)
+* SAPP HTTP Client created by 002 (Obtainable either in the dll_helpers .zip, or at http://opencarnage.net/index.php?/topic/5998-sapp-http-client/)
+* The .dll files included inside of dll_helpers.zip (Place these into your dedicated server .exe folder)
 
 ### Configuration
 1. In the LUA Script, set the Main_link to be the www location where you uploaded your reporter utility.
