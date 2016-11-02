@@ -20,7 +20,8 @@ Make sure that you do not give your verification key out to anyone. If you give 
 
 ## Lua Script Installation
 
-** Anticheat Server Administrators Read This **
+**Anticheat Server Administrators Read This Note**
+
 This lua script will _override_ the built-in SAPP /report command for Anticheat enabled servers. Please keep this in mind if you intend to install this on a server that employs Anticheat.
 
 ### Pre-requisites
