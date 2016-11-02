@@ -173,6 +173,8 @@ if (defined('DEBUG_INFO'))
  */
 function get_color_info($sv_ip)
 {
+	require_once('config.php');
+
 	if (!isset($sv_colors[$sv_ip]))
 	{
 		$ip_sha = sha1($sv_ip);
