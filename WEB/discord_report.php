@@ -99,7 +99,7 @@ switch($mode)
 				array(
 					'type'			=>	'rich',														// This should always be rich, anyways.
 					'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
-					'color'			=>	get_color_info($data['sv_ip']),
+					'color'			=>	get_color_info($data['sv_ip'], $mode),
 					'description'	=>	$data['snitch_msg'],
 					'fields'		=>	array(
 						array(
