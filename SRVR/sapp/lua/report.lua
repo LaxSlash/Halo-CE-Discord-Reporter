@@ -4,7 +4,7 @@
 -- ffi modual by: 002
 -- Discord: https://discord.gg/Mxmuxgm
 
-Main_link = "http://website.com/rac/reporter/discord_report.php?"
+Main_link = "http://website.com/reporter/discord_report.php?"
 Key = "authkey"
 
 timeout_time = 5 -- Timeout after a report before the player can send another report.
@@ -55,11 +55,9 @@ function OnChat(PlayerIndex, Message)
 						local SuspectIndex = tonumber(t[2])
 						local sv_ip = read_string(0x006260F0)..":"..read_word(0x5A9190) -- Gets the '-ip' and '-port' options of the server.
 						local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
-						local R_Name, R_Hash, R_IP = getname(PlayerIndex), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
-						local S_Name, S_Hash, S_IP = getname(SuspectIndex), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
-						local words = {}
-						for i = 0,#t do if i > 2 then words[i-2] = t[i] .. "%20" end end -- Get every word after SuspectIndex
-						local Message = table.concat(words) -- Turn that table into a message.
+						local R_Name, R_Hash, R_IP = get_byte_string(getname(PlayerIndex)), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
+						local S_Name, S_Hash, S_IP = get_byte_string(getname(SuspectIndex)), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
+						local Message = get_byte_string(assemble(t, 2, "%20")) -- After the second word form the message.
 						local report = string.format([[
 						%s
 						name="%s"
@@ -90,19 +88,57 @@ function OnChat(PlayerIndex, Message)
 	return allow
 end
 
-function get_name_byte(PlayerIndex)
-	local name = get_var(PlayerIndex, "$name")
-	local len = string.len(name)
-	local Name = {}
+function get_byte_string(String)
+	local len = string.len(String)
+	local bytes = {}
 	for i = 1,len do
-		local char_byte = string.byte(string.sub(name,i,i))
+		local char_byte = string.byte(string.sub(String,i,i))
 		if i == len then
-			Name[i] = char_byte
+			bytes[i] = char_byte
 		else
-			Name[i] = char_byte..","
+			bytes[i] = char_byte..","
 		end
 	end
-	return table.concat(Name)
+	return table.concat(bytes)
+end
+
+function assemble(t, start, spacer)
+	local words = {}
+	for i = 1,#t do
+		if i > start then
+			if i == #t then
+				words[i-2] = t[i]
+			else
+				words[i-2] = t[i] .. spacer
+			end
+		end
+	end
+	return table.concat(words)
+end
+
+function timeout_timer()
+	for i=1,16 do
+		if player_present(i) then
+			if timeout[i] then
+				if timeout[i] > 1 then
+					timeout[i] = timeout[i] - 1
+				end
+			else
+				timeout[i] = 0
+			end
+		end
+	end
+	return true
+end
+
+function getname(PlayerIndex)
+	if player_present(PlayerIndex) then
+		local name = get_var(PlayerIndex, "$name")
+		if name then
+			return name
+		end
+	end
+	return nil
 end
 
 function timeout_timer()
