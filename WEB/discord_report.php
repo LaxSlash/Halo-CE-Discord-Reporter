@@ -45,16 +45,10 @@ switch($mode)
 		// Escape all data if not already done
 		if (get_magic_quotes_gpc() == false)
 		{
-			$data['sv_name'] = addslashes($data['sv_name']);
-			$data['sv_ip'] = addslashes($data['sv_ip']);
-			$data['sv_reporter'] = addslashes($data['sv_reporter']);
-			$data['sv_reportee'] = addslashes($data['sv_reportee']);
-			$data['sv_verification_key'] = addslashes($data['sv_verification_key']);
-			$data['snitch_hash'] = addslashes($data['snitch_hash']);
-			$data['snitch_ip'] = addslashes($data['snitch_ip']);
-			$data['snitch_msg'] = addslashes($data['snitch_msg']);
-			$data['defendant_hash'] = addslashes($data['defendant_hash']);
-			$data['defendant_ip'] = addslashes($data['defendant_ip']);
+			foreach ($data as $key => $value)
+			{
+				$data[$key] = addslashes($data[$key]);
+			}
 		}
 
 		// The URL should be formed like this: http://www.site.tld/discord_report.php
