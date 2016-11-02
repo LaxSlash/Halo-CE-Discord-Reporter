@@ -12,8 +12,7 @@ header('Content-type: text/html; charset=utf-8');
 
 // Includes go here for things like functions and configuration files.
 require_once('config.php');
-require_once('includes/str_functions.php');
-require_once('includes/webhooks_functions.php');
+require_once('includes/functions.php');
 
 // Check that the requesting IP Address is an allowed IP Address.
 if (defined('SUPER_SECURE'))
