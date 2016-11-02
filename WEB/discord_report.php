@@ -55,7 +55,7 @@ switch($mode)
 
 		// The URL should be formed like this: http://www.site.tld/discord_report.php
 		// ?mode="report"
-		// &sv_name="SERVER NAME"
+		// &sv_name=120,121,122
 		// &sv_ip=123.123.123.123:1234
 		// &snitch=120,121,122
 		// &defendant=120,121,122
