@@ -39,6 +39,7 @@ For support and suggestions for the script, please submit an issue on the Git Re
 
 # Credits:
 PHP Script: «DG»MyHogs (LaxSlash)
+
 Lua Script: =DG=Devieth (Skylace)
 
 # License:
