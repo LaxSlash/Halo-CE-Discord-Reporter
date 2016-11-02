@@ -14,7 +14,7 @@ header('Content-type: text/html; charset=utf-8');
 define('IN_REPORTER', true);
 
 // Includes go here for things like functions and configuration files.
-require_once('config.php');
+require_once('includes/config.php');
 require_once('includes/functions.php');
 
 // Check that the requesting IP Address is an allowed IP Address.
