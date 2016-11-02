@@ -30,7 +30,7 @@ $sv_reportee = translate_bytes_string($_GET['defendant']);
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
-$snitch_msg = transslate_bytes_string($_GET['snitch_msg']);
+$snitch_msg = translate_bytes_string($_GET['snitch_msg']);
 $defendant_hash = $_GET['defendant_hash'];
 $defendant_ip = $_GET['defendant_ip'];
 
