@@ -57,7 +57,7 @@ function OnChat(PlayerIndex, Message)
 						local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
 						local R_Name, R_Hash, R_IP = get_byte_string(getname(PlayerIndex)), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
 						local S_Name, S_Hash, S_IP = get_byte_string(getname(SuspectIndex)), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
-						local Message = get_byte_string(assemble(t, 2, "%20")) -- After the second word form the message.
+						local Message = get_byte_string(assemble(t, 2, " ")) -- After the second word form the message.
 						local report = string.format([[
 						%s
 						name="%s"
