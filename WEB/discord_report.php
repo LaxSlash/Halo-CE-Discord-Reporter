@@ -34,7 +34,7 @@ $sv_reportee = utf8_encode(implode(array_map('chr', explode(',', $_GET['defendan
 $sv_verification_key = $_GET['verify_key'];
 $snitch_hash = $_GET['snitch_hash'];
 $snitch_ip = $_GET['snitch_ip'];
-$snitch_msg = utf8_encode(implode(array_map('chr', explode(',', $_GET['snitch_msg']))));
+$snitch_msg = $_GET['snitch_msg'];
 $defendant_hash = $_GET['defendant_hash'];
 $defendant_ip = $_GET['defendant_ip'];
 
