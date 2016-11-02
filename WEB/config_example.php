@@ -40,7 +40,8 @@ $wh_urls = array(
 		'notify'	=>	'',
 		'report'	=>	'',
 	),
-)
+);
+
 // URL for the reporting webhook.
 $report_wh_url = '';
 
