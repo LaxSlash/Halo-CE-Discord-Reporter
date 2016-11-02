@@ -83,6 +83,8 @@ if ($data['sv_name'] == ""
 	$data['defendant_hash'] == ""
 	||
 	$data['defendant_ip'] == ""
+	||
+	$data['snitch_msg'] == ""
 	)
 {
 	die('One or more required fields are missing.');
