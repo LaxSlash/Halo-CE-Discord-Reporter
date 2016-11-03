@@ -111,7 +111,7 @@ switch($mode)
 						),
 						array(
 							'name'			=>	'Message:',
-							'value'			=>	'\n ```' . $data['snitch_msg'] . '```',
+							'value'			=>	'```' . $data['snitch_msg'] . '```',
 						),
 						array(
 							'name'			=>	'Reporter CD Hash:',
