@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Version 1.0.0 BETA 3
+  - **[NEW]** Error handling between the PHP and the Lua script. (PHP/Lua)
+
 ## Version 1.0.0 BETA 2
   - **[NEW]** Added coloring for the webhook embeds based off of the server IP:Port and mode. A default is also settable. (PHP)
   - **[NEW]** Added a notify mode for things like bans, aimbot scores, kicks, etc. (PHP/Lua)
