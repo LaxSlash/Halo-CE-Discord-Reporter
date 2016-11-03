@@ -54,13 +54,15 @@ function OnChat(PlayerIndex, Message)
 						timeout[PlayerIndex] = timeout_time * 60
 						local SuspectIndex = tonumber(t[2])
 						local sv_ip = read_string(0x006260F0)..":"..read_word(0x5A9190) -- Gets the '-ip' and '-port' options of the server.
-						local sv_name = string.gsub(get_var(1, "$svname"), [[]], "")
+						local sv_name = get_byte_string(string.gsub(get_var(1, "$svname"), [[]], ""))
 						local R_Name, R_Hash, R_IP = get_byte_string(getname(PlayerIndex)), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
 						local S_Name, S_Hash, S_IP = get_byte_string(getname(SuspectIndex)), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
+						if t[3] == nil then t[3] = "***No message given.***" end
 						local Message = get_byte_string(assemble(t, 2, " ")) -- After the second word form the message.
 						local report = string.format([[
 						%s
-						name="%s"
+						mode=report
+						&sv_name=%s
 						&sv_ip=%s
 						&snitch=%s
 						&defendant=%s
@@ -70,15 +72,16 @@ function OnChat(PlayerIndex, Message)
 						&defendant_hash=%s
 						&defendant_ip=%s
 						&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Message)
+						GetPage(report)
 						say(PlayerIndex, "Your report has been submited!")
 					else
 						say(PlayerIndex, "Error: You cannot report yourself.")
 					end
 				else
-					say(PlayerIndex, "Error: Player is not present in the server.")
+					say(PlayerIndex, "Error: Player slot "..t[2].." is currently vacant.")
 				end
 			else
-				say(PlayerIndex, "Error: Invalid player. Use /pl to get player ID list.")
+				say(PlayerIndex, "Syntax Error: /report [ID] <Message>\nUse /pl to get player ID list.")
 			end
 		else
 			local s, m, h = gettimestamp(timeout[PlayerIndex])
