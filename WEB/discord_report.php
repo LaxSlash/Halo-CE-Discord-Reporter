@@ -147,7 +147,7 @@ unset($data);
 
 if (defined('DEBUG_INFO'))
 {
-	if ($result = false)
+	if ($result == false)
 	{
 		exit('Webhook sent and posted successfully.');
 	} else {
