@@ -11,8 +11,9 @@ A utility for users to report users in SAPP-enabled Halo CE gameservers via a we
 ### Steps
 1. Upload the files in the /WEB directory to your website where you want the reporter utility to go.
 2. Configuration
-  * Rename config_example.php to config.pho
+  * Rename includes/config_example.php to includes/config.php
   * Create your server secret/key. You will need this for your SAPP Lua scipt configuration.
+  * Follow the comments within the config file for more setup instructions.
   * Save the file
 
 ### Security
