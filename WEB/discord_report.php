@@ -117,7 +117,7 @@ switch($mode)
 							'value'			=>	$data['snitch_hash'],
 						),
 						array(
-							'name'			=>	'Reporter IP Address:',
+							'name'			=>	'Reporter IP:',
 							'value'			=>	$data['snitch_ip'],
 						),
 						array(
@@ -125,7 +125,7 @@ switch($mode)
 							'value'			=>	$data['defendant_hash'],
 						),
 						array(
-							'name'			=>	'Suspect IP Address:',
+							'name'			=>	'Suspect IP:',
 							'value'			=>	$data['defendant_ip'],
 						),
 					),
