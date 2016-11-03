@@ -123,7 +123,7 @@ function timeout_timer()
 	for i=1,16 do
 		if player_present(i) then
 			if timeout[i] then
-				if timeout[i] > 1 then
+				if timeout[i] >= 1 then
 					timeout[i] = timeout[i] - 1
 				end
 			else
