@@ -38,3 +38,28 @@ function translate_bytes_string($string)
 
 	return $new_string;
 }
+
+/**
+ * Function to escape Discord syntax.
+ * @param		string		$string		The string to escape.
+ * @return		string					The escaped string.
+ */
+function escape_discord_string($string)
+{
+	$string_ary = str_split($string);
+
+	foreach ($string_ary as $key => $value)
+	{
+		if ($value == '`')
+		{
+			// Escape it with a backslash.
+			$string_ary[$key] = '\\' . $value;
+		}
+	}
+
+	// Reset the string.
+	$string = implode($string_ary);
+	unset($string_ary);		// Unset the string array.
+
+	return $string;
+}

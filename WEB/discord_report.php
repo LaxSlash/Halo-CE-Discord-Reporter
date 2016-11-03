@@ -33,14 +33,14 @@ $mode = $_GET['mode'];
 switch($mode)
 {
 	case 'report':
-		$data['sv_name'] = translate_bytes_string($_GET['sv_name']);
+		$data['sv_name'] = escape_discord_string(translate_bytes_string($_GET['sv_name']));
 		$data['sv_ip'] = $_GET['sv_ip'];
-		$data['sv_reporter'] = translate_bytes_string($_GET['snitch']);
-		$data['sv_reportee'] = translate_bytes_string($_GET['defendant']);
+		$data['sv_reporter'] = escape_discord_string(translate_bytes_string($_GET['snitch']));
+		$data['sv_reportee'] = escape_discord_string(translate_bytes_string($_GET['defendant']));
 		$data['sv_verification_key'] = $_GET['verify_key'];
 		$data['snitch_hash'] = $_GET['snitch_hash'];
 		$data['snitch_ip'] = $_GET['snitch_ip'];
-		$data['snitch_msg'] = translate_bytes_string($_GET['snitch_msg']);
+		$data['snitch_msg'] = escape_discord_string(translate_bytes_string($_GET['snitch_msg']));
 		$data['defendant_hash'] = $_GET['defendant_hash'];
 		$data['defendant_ip'] = $_GET['defendant_ip'];
 
