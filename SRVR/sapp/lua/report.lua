@@ -104,9 +104,9 @@ function assemble(t, start, spacer)
 	for i = 1,#t do
 		if i > start then
 			if i == #t then
-				words[i-2] = t[i]
+				words[i-start] = t[i]
 			else
-				words[i-2] = t[i] .. spacer
+				words[i-start] = t[i] .. spacer
 			end
 		end
 	end
