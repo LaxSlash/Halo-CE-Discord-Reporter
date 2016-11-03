@@ -28,67 +28,61 @@ ffi.cdef [[
 http_client = ffi.load("lua_http_client")
 
 function OnScriptLoad()
+	server_ip = read_string(0x006260F0) -- -ip argument (or current ip) in shortcut.
+	server_port = read_word(0x5A9190)-- -port argument (or current port) in shortcut.
+	server_name = get_byte_string(string.gsub(get_var(1, "$svname"), [[]], "")) -- Get the server name and remove spacer.
 	register_callback(cb['EVENT_CHAT'], "OnChat")
 	timer(1000, "timeout_timer")
 end
 
-function GetPage(URL)
-    local response = http_client.http_get(URL, true)
-    local returning = nil
-    if http_client.http_response_is_null(response) ~= true then
-        local response_text_ptr = http_client.http_read_response(response)
-        returning = ffi.string(response_text_ptr)
-    end
-    http_client.http_destroy_response(response)
-    return returning
-end
-
 function OnChat(PlayerIndex, Message)
-	local allow, t = true, tokenizestring(string.lower(Message))
-	if t[1] == "\\report" or t[1] == "/report" then
+	local allow, t = true, tokenizestring(string.lower(string.gsub(Message, "\\", "/")))
+	if t[1] == "/report" then
 		allow = false
-		if timeout[PlayerIndex] < 1 then -- Can they make a report?
-			if tonumber(t[2]) then -- Are they using a PlayerIndex?
-				if player_present(tonumber(t[2])) then -- Is that PlayerIndex currently ocupied?
-					if PlayerIndex ~= tonumber(t[2]) then -- Are they trying to report theselves?
-						timeout[PlayerIndex] = timeout_time * 60
-						local SuspectIndex = tonumber(t[2])
-						local sv_ip = read_string(0x006260F0)..":"..read_word(0x5A9190) -- Gets the '-ip' and '-port' options of the server.
-						local sv_name = get_byte_string(string.gsub(get_var(1, "$svname"), [[]], ""))
-						local R_Name, R_Hash, R_IP = get_byte_string(getname(PlayerIndex)), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
-						local S_Name, S_Hash, S_IP = get_byte_string(getname(SuspectIndex)), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
-						if t[3] == nil then t[3] = "***No message given.***" end
-						local Message = get_byte_string(assemble(t, 2, " ")) -- After the second word form the message.
-						local report = string.format([[
-						%s
-						mode=report
-						&sv_name=%s
-						&sv_ip=%s
-						&snitch=%s
-						&defendant=%s
-						&verify_key=%s
-						&snitch_hash=%s
-						&snitch_ip=%s
-						&defendant_hash=%s
-						&defendant_ip=%s
-						&snitch_msg=%s]],Main_link ,sv_name, sv_ip, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Message)
-						GetPage(report)
-						say(PlayerIndex, "Your report has been submited!")
-					else
-						say(PlayerIndex, "Error: You cannot report yourself.")
-					end
-				else
-					say(PlayerIndex, "Error: Player slot "..t[2].." is currently vacant.")
-				end
-			else
-				say(PlayerIndex, "Syntax Error: /report [ID] <Message>\nUse /pl to get player ID list.")
-			end
+		if tonumber(t[2]) then
+			command_report(PlayerIndex, t)
 		else
-			local s, m, h = gettimestamp(timeout[PlayerIndex])
-			say(PlayerIndex, "Error: Please wait "..m..":"..s.." before reporting again.")
+			say(PlayerIndex, "Syntax Error: /report [ID] <Message>\nUse /pl to get player ID list.")
 		end
 	end
 	return allow
+end
+
+function command_report(PlayerIndex, t)
+	if timeout[PlayerIndex] < 1 then -- Can they make a report?
+		local SuspectIndex = tonumber(t[2])
+		if player_present(SuspectIndex) then -- Is that PlayerIndex currently ocupied?
+			if PlayerIndex ~= tonumber(SuspectIndex) then -- Are they trying to report theselves?
+				timeout[PlayerIndex] = timeout_time * 60
+				local R_Name, R_Hash, R_IP = get_byte_string(getname(PlayerIndex)), get_var(PlayerIndex, "$hash"), get_var(PlayerIndex, "$ip")
+				local S_Name, S_Hash, S_IP = get_byte_string(getname(SuspectIndex)), get_var(SuspectIndex, "$hash"), get_var(SuspectIndex, "$ip")
+				if t[3] == nil then t[3] = "***No message given.***" end
+				local Message = get_byte_string(assemble(t, 2, " "))-- After the second word form the message.
+				local report = string.format([[
+				%s
+				mode=report
+				&sv_name=%s
+				&sv_ip=%s:%s
+				&snitch=%s
+				&defendant=%s
+				&verify_key=%s
+				&snitch_hash=%s
+				&snitch_ip=%s
+				&defendant_hash=%s
+				&defendant_ip=%s
+				&snitch_msg=%s]],Main_link ,server_name, server_ip, server_port, R_Name, S_Name, Key, S_Hash, S_IP, R_Hash, R_IP, Message)
+				local response = GetPage(report)
+				say(PlayerIndex, "Your report has been submited!")
+			else
+				say(PlayerIndex, "Error: You cannot report yourself.")
+			end
+		else
+			say(PlayerIndex, "Error: Player slot "..t[2].." is currently vacant.")
+		end
+	else
+		local s, m, h = gettimestamp(timeout[PlayerIndex])
+		say(PlayerIndex, "Error: Please wait "..m..":"..s.." before reporting again.")
+	end
 end
 
 function get_byte_string(String)
@@ -119,20 +113,6 @@ function assemble(t, start, spacer)
 	return table.concat(words)
 end
 
-function timeout_timer()
-	for i=1,16 do
-		if player_present(i) then
-			if timeout[i] then
-				if timeout[i] >= 1 then
-					timeout[i] = timeout[i] - 1
-				end
-			else
-				timeout[i] = 0
-			end
-		end
-	end
-	return true
-end
 
 function getname(PlayerIndex)
 	if player_present(PlayerIndex) then
@@ -144,20 +124,19 @@ function getname(PlayerIndex)
 	return nil
 end
 
-function timeout_timer()
-	for i=1,16 do
-		if player_present(i) then
-			if timeout[i] then
-				if timeout[i] > 1 then
-					timeout[i] = timeout[i] - 1
-				end
-			else
-				timeout[i] = 0
-			end
-		end
+
+function tokenizestring(inputstr, sep)
+	if sep == nil then
+		sep = "%s"
 	end
-	return true
+	local t={} ; i=1
+	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+		t[i] = str
+		i = i + 1
+	end
+	return t
 end
+
 
 function gettimestamp(seconds)
 	if seconds < 10 then
@@ -179,14 +158,28 @@ function gettimestamp(seconds)
 	return hours, minutes, seconds
 end
 
-function tokenizestring(inputstr, sep)
-	if sep == nil then
-		sep = "%s"
+function GetPage(URL)
+    local response = http_client.http_get(URL, true)
+    local returning = nil
+    if http_client.http_response_is_null(response) ~= true then
+        local response_text_ptr = http_client.http_read_response(response)
+        returning = ffi.string(response_text_ptr)
+    end
+    http_client.http_destroy_response(response)
+    return returning
+end
+
+function timeout_timer()
+	for i=1,16 do
+		if player_present(i) then
+			if timeout[i] then
+				if timeout[i] >= 1 then
+					timeout[i] = timeout[i] - 1
+				end
+			else
+				timeout[i] = 0
+			end
+		end
 	end
-	local t={} ; i=1
-	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-		t[i] = str
-		i = i + 1
-	end
-	return t
+	return true
 end
