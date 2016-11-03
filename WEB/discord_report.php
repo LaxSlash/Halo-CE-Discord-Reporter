@@ -159,7 +159,7 @@ if (defined('DEBUG_INFO'))
 		//Now the HTTP Result goes here
 		echo '<b>HTTP Code:</b> ' . $result['http'];
 		echo '<br />';
-		echo '<b>Discord Returns:</b> ' . $wh_result;
+		echo '<b>Discord Returns:</b> ' . $result['discord'];
 		unset($result);
 
 		// Show them what they need to do for support.
