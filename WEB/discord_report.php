@@ -145,6 +145,22 @@ $result = send_webhook($wh_url, $payload);
 
 unset($data);
 
+
+// What to return?
+if ($wh_result == false)
+{
+	print('True');
+} else {
+	if ($wh_result['http'] == '400')
+	{
+		print('Discord');
+	} else {
+		print('HTTP');
+	}
+}
+
+echo '<br />';
+
 if (defined('DEBUG_INFO'))
 {
 	if ($result == false)
