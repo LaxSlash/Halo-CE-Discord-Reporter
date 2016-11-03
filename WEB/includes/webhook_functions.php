@@ -17,7 +17,7 @@ if (!defined('IN_REPORTER'))
  *
  * @param	string		$wh_url		The target URL for the webhook.
  * @param	string		$payload	The JSON encoded payload to send off to the webhook.
- * @return	bool|array				Result information to send back to the calling script. True if a successful send (HTTP Status Code: 204)
+ * @return	bool|array				Result information to send back to the calling script. False if a successful send (HTTP Status Code: 204)
  */
 function send_webhook($wh_url, $payload)
 {
