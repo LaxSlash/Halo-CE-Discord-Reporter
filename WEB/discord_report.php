@@ -94,7 +94,6 @@ switch($mode)
 
 		// Create the actual webhook payload.
 		$payload_ary = array(
-			'content'	=>	'Administrator requested on server ' . $data['sv_name'],
 			'embeds'	=>	array(
 				array(
 					'type'			=>	'rich',														// This should always be rich, anyways.
