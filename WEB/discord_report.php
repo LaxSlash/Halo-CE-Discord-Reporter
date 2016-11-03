@@ -128,6 +128,15 @@ switch($mode)
 		);
 	break;
 	case 'notify':
+		// Setup the variables.
+		$data['sv_name'] = translate_bytes_string($_GET['sv_name']);
+		$data['sv_ip'] = $_GET['sv_name'];
+		$data['event_ran'] = $_GET['event'];
+		$data['target_player'] = translate_bytes_string($_GET['target_player']);
+		$data['event_details'] = $_GET['event_details'];
+		$data['target_player_cd_hash'] = $_GET['target_hash'];
+		$data['target_player_ip_addr'] = $_GET['target_ip_addr'];
+		$data['verify_key'] = $_GET['verify_key'];
 	break;
 	default:
 		exit('Invalid mode selected.');
