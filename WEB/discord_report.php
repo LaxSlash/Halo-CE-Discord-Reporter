@@ -97,9 +97,9 @@ switch($mode)
 			'embeds'	=>	array(
 				array(
 					'type'			=>	'rich',														// This should always be rich, anyways.
-					'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
+					//'title'			=>	'Report from ' . $data['sv_reporter'] . ' against ' . $data['sv_reportee'],
 					'color'			=>	get_color_info($data['sv_ip'], $mode),
-					'fields'		=>	array(
+/**					'fields'		=>	array(
 						array(
 							'name'			=>	'Server:',
 							'value'			=>	$data['sv_name'],
@@ -128,7 +128,24 @@ switch($mode)
 							'name'			=>	'Suspect IP:',
 							'value'			=>	$data['defendant_ip'],
 						),
-					),
+					), **/
+					'description'	=>	"
+					```vb
+					## Server Info
+					Name = {$data['sv_name']}
+					IP = {$data['sv_ip']}
+					## Complaint
+					{$data['snitch_msg']}
+					## Reporter Info
+					Name = {$data['sv_reportee']}
+					IP = {$data['snitch_ip']}
+					Hash = {$data['snitch_hash']}
+					## Suspect Info
+					Name = {$data['sv_reporter']}
+					IP = {$data['defendant_ip']}
+					Hash = {$data['defendant_hash']}
+					```
+					",
 				),
 			),
 		);
