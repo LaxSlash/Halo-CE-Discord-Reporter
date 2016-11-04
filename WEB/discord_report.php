@@ -134,16 +134,21 @@ switch($mode)
 ## Server Info
 Name = {$data['sv_name']}
 IP = {$data['sv_ip']}
+
 ## Complaint
 {$data['snitch_msg']}
+
 ## Reporter Info
 Name = {$data['sv_reportee']}
 IP = {$data['snitch_ip']}
-Hash = {$data['snitch_hash']}
+CD Hash:
+{$data['snitch_hash']}
+
 ## Suspect Info
 Name = {$data['sv_reporter']}
 IP = {$data['defendant_ip']}
-Hash = {$data['defendant_hash']}
+CD Hash:
+{$data['defendant_hash']}
 ```
 					",
 				),
