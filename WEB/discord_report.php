@@ -144,7 +144,7 @@ IP = {$data['sv_ip']}
 ## Reporter Info
 Name = {$data['sv_reportee']}
 IP = {$data['snitch_ip']}
-CD Hash = " . '"' . $data['snitch_hash'] . '"' . "
+CD Hash = {$data['snitch_hash']}
 ## Suspect Info
 Name = {$data['sv_reporter']}
 IP = {$data['defendant_ip']}
