@@ -35,8 +35,8 @@ switch($mode)
 	case 'report':
 		$data['sv_name'] = escape_discord_string(translate_bytes_string($_GET['sv_name']));
 		$data['sv_ip'] = $_GET['sv_ip'];
-		$data['sv_reporter'] = escape_discord_string(translate_bytes_string($_GET['snitch']));
-		$data['sv_reportee'] = escape_discord_string(translate_bytes_string($_GET['defendant']));
+		$data['sv_reporter'] = '"' . escape_discord_string(translate_bytes_string($_GET['snitch'])) . '"';
+		$data['sv_reportee'] = '"' . escape_discord_string(translate_bytes_string($_GET['defendant'])) . '"';
 		$data['sv_verification_key'] = $_GET['verify_key'];
 		$data['snitch_hash'] = $_GET['snitch_hash'];
 		$data['snitch_ip'] = $_GET['snitch_ip'];
@@ -131,24 +131,24 @@ switch($mode)
 					), **/
 					'description'	=>	"
 ```vb
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 ## Server Info
 Name = {$data['sv_name']}
 IP = {$data['sv_ip']}
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 ## Complaint
 {$data['snitch_msg']}
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 ## Reporter Info
 Name = {$data['sv_reportee']}
 IP = {$data['snitch_ip']}
 CD Hash = " . '"' . $data['snitch_hash'] . '"' . "
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 ## Suspect Info
 Name = {$data['sv_reporter']}
 IP = {$data['defendant_ip']}
 CD Hash = " . '"' . $data['snitch_hash'] . '"' . "
-*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+*** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 ```
 					",
 				),
