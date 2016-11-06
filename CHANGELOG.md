@@ -1,7 +1,10 @@
 # CHANGELOG
 
 ## Version 1.0.0 BETA 3
-  - **[NEW]** Error handling between the PHP and the Lua script. (PHP/Lua)
+  - **[ENHANCEMENT]** Change display of webhook in Discord (PHP)
+  - **[CHANGE]** Minor lingual changes (PHP)
+  - **[FIX]** Discord syntax should now at least be partially escaped in Strings (PHP/Lua)
+  - **[FIX]** Fixed a bug where players that quit then returned could no longer submit any reports until SAPP was reloaded (Lua)
 
 ## Version 1.0.0 BETA 2
   - **[NEW]** Added coloring for the webhook embeds based off of the server IP:Port and mode. A default is also settable. (PHP)
