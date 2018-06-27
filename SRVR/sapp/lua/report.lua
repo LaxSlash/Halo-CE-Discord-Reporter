@@ -137,25 +137,12 @@ function tokenizestring(inputstr, sep)
 	return t
 end
 
-
-function gettimestamp(seconds)
-	if seconds < 10 then
-		seconds = "0"..math.floor(seconds)
-	elseif seconds > 59 then
-		minutes = math.floor(seconds / 60)
-		seconds = seconds - (minutes * 60)
-		if seconds < 10 then seconds = "0"..math.floor(seconds) end
-		if minutes < 10 then minutes = "0"..math.floor(minutes) end
-		if tonumber(minutes) > 59 then
-			hours = math.floor(tonumber(minutes) / 60)
-			minutes = tonumber(minutes) - (hours * 60)
-			if tonumber(minutes) < 10 then minutes = "0"..math.floor(minutes) end
-			if hours < 10 then hours = "0"..math.floor(hours) end
-		end
-	end
-	if hours then else hours = "00" end
-	if minutes then else minutes = "00" end
-	return hours, minutes, seconds
+function gettimestamp(Seconds)
+    local ss, mm, hh = 0, 0, 0
+    ss = Seconds % 60
+    mm = math.floor((Seconds % 3600) / 60)
+    hh = math.floor(Seconds / 3600)
+    return string.format("%02d", hh), string.format("%02d", mm), string.format("%02d", ss)
 end
 
 function GetPage(URL)
